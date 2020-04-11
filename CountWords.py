@@ -22,9 +22,7 @@ def countwords(sentence):
     # print(post_result.text)
     json_obj=post_result.json()
     raw_data = json_obj["converted"]
-    print(raw_data)
     hiragana_sentence = re.sub(r"[\s、。]", "", raw_data)
-    print(hiragana_sentence)
     return len(hiragana_sentence)
 
 if __name__ == "__main__":
