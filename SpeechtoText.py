@@ -30,6 +30,7 @@ def speechtotext():
     # Checks result.
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
         print("Recognized: {}".format(result.text))
+        return result.text
     elif result.reason == speechsdk.ResultReason.NoMatch:
         print("No speech could be recognized: {}".format(result.no_match_details))
     elif result.reason == speechsdk.ResultReason.Canceled:
@@ -37,6 +38,6 @@ def speechtotext():
         print("Speech Recognition canceled: {}".format(cancellation_details.reason))
         if cancellation_details.reason == speechsdk.CancellationReason.Error:
             print("Error details: {}".format(cancellation_details.error_details))
-
+    return ""
 if __name__ == "__main__":
     speechtotext()
