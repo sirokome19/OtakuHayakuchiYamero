@@ -2,7 +2,12 @@ from SpeechtoText import speechtotext
 from CountWords import countwords
 import PySimpleGUI as sg
 import time
-TIMEOUT = 60000  #ms
+from PIL import Image, ImageTk
+import io
+TIMEOUT = 6000  #ms
+GO = "./images/go.jpg"
+SLOW="./images/slow.png"
+STOP = "./images/stop.jpg"
 
 def measure_speed():
     sentence, talking_time = speechtotext()
@@ -19,8 +24,22 @@ def measure_speed():
     print("Words Per Second: {}".format(wordspersecond))
     return wordspersecond
 
+def get_img_data(f, maxsize=(600, 450), first=False):
+    """Generate image data using PIL
+    """
+    print("open file:", f)
+    img = Image.open(f)
+    img.thumbnail(maxsize)
+    if first:  # tkinter is inactive the first time
+        bio = io.BytesIO()
+        img.save(bio, format="PNG")
+        del img
+        return bio.getvalue()
+    return ImageTk.PhotoImage(img)
+
+filename = GO
 layout = [
-    [sg.Text("スピードテスト",key="judge")],
+    [sg.Image(data=get_img_data(filename, first=True),key="judge")],
 ]
 window = sg.Window("Window Title", size=(600, 450)).Layout(layout)
 
@@ -31,11 +50,13 @@ while True:
         break
     elif event=="monitor":
         wordpersecond=measure_speed()
-        if wordpersecond>5:
-            update_text = "{}文字/s\nオタク早口やめろ".format(wordpersecond)
+        if wordpersecond > 5:
+            filename=STOP
+            # update_text = "{}文字/s\nオタク早口やめろ".format(wordpersecond)
         else:
-            update_text = "{}文字/s\nいいじゃん".format(wordpersecond)
-        window['judge'].update(update_text)
+            filename=GO
+            # update_text = "{}文字/s\nいいじゃん".format(wordpersecond)
+        window['judge'].update(data=get_img_data(filename, first=True))
 
 window.close()
 
