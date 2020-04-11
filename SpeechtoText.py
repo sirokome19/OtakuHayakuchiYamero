@@ -26,11 +26,13 @@ def speechtotext():
     # shot recognition like command or query.
     # For long-running multi-utterance recognition, use start_continuous_recognition() instead.
     result = speech_recognizer.recognize_once()
-
+    
     # Checks result.
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        print("Recognized: {}".format(result.text))
-        return result.text
+        sentence = result.text
+        talking_time=result._duration*(10**-7) #100ns->1s
+        print("Recognized: {}".format(sentence))
+        return sentence, talking_time
     elif result.reason == speechsdk.ResultReason.NoMatch:
         print("No speech could be recognized: {}".format(result.no_match_details))
     elif result.reason == speechsdk.ResultReason.Canceled:
@@ -38,6 +40,6 @@ def speechtotext():
         print("Speech Recognition canceled: {}".format(cancellation_details.reason))
         if cancellation_details.reason == speechsdk.CancellationReason.Error:
             print("Error details: {}".format(cancellation_details.error_details))
-    return ""
+    return "", 0
 if __name__ == "__main__":
     speechtotext()
