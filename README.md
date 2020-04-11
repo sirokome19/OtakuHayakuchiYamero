@@ -1,10 +1,11 @@
 # OtakuHayakuchiYamero
 使用方法
-subscription_info.jsonを以下の内容でトップディレクトリに作成。
-```subscription_info.json
+api_keys.jsonを以下の内容でトップディレクトリに作成。
+```api_keys.json
 {
-    "key": "サブスクリプションキー",
-    "region": "使用リージョン"
+    "key": "azure speechのサブスクリプションキー",
+    "region": "azure 使用リージョン",
+    "app_id: "gooラボのひらがな化APIキー"
 }
 ```
 <a href="http://www.goo.ne.jp/">
