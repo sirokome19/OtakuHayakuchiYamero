@@ -1,5 +1,15 @@
 # OtakuHayakuchiYamero
-使用方法
+## 概要
+人が聞き取りやすいと言われる5文字/秒を超えると怒られるアプリ
+
+## 必要ライブラリ
+すべてpipで入ります。
+- azure-cognitiveservices-speech
+- json
+- requests
+- PySimpleGUI
+
+## 使用方法
 api_keys.jsonを以下の内容でトップディレクトリに作成。
 ```api_keys.json
 {
