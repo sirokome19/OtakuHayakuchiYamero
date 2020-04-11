@@ -1,5 +1,8 @@
 # subscription key
-subscription_info.json
+api_keys.json
+
+# vscode
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
